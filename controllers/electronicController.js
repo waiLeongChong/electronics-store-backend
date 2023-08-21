@@ -36,7 +36,7 @@ electronics.get("/:id", async (req, res) => {
 
 
 // CREATE
-electronics.post("/", checkBoolean, checkName, async (req, res) => {
+electronics.post("/", async (req, res) => {
   try {
     const electronic = await createElectronic(req.body);
     res.json(electronic);
