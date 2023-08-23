@@ -60,6 +60,7 @@ electronics.delete("/:id", async (req, res) => {
 // UPDATE
 electronics.put("/:id", async (req, res) => {
   const { id } = req.params;
+  console.log(req.body)
   const updatedElectronic= await updateElectronic(id, req.body);
   res.status(200).json(updatedElectronic);
 });

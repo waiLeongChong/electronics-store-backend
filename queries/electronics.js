@@ -3,7 +3,7 @@ const db = require("../db/dbConfig");
 // All Electronics
 const getAllElectronics = async () => {
   try {
-    const allElectronics = await db.any("SELECT * FROM electronics");
+    const allElectronics = await db.any("SELECT * FROM electronics ORDER BY id ASC");
     return allElectronics;
   } catch (error) {
     return error;
@@ -13,7 +13,7 @@ const getAllElectronics = async () => {
 // ONE Electronic
 const getElectronic = async (id) => {
   try {
-    const oneElectronic = await db.oneOrNone("SELECT * FROM electronic WHERE id=$1", id);
+    const oneElectronic = await db.oneOrNone("SELECT * FROM electronics WHERE id=$1", id);
     return oneElectronic;
   } catch (error) {
     return error;
@@ -49,12 +49,13 @@ const deleteElectronic = async (id) => {
 // UPDATE
 const updateElectronic = async (id, electronic) => {
   try {
-    const updatedElectronic= await db.one(
-      "UPDATE electronics SET name=$1, brand=$2, category=$3, description=$4, image_url=$5 price=$6 WHERE id=$7 RETURNING *",
+    const updatedElectronic = await db.one(
+      "UPDATE electronics SET name=$1, brand=$2, category=$3, description=$4, image_url=$5, price=$6 WHERE id=$7 RETURNING *",
       [electronic.name, electronic.brand, electronic.category, electronic.description, electronic.image_url, electronic.price, id]
-    );
+);
     return updatedElectronic;
   } catch (error) {
+    console.log(error)
     return error;
   }
 };
